@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import reactor.core.publisher.Flux;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
@@ -27,10 +28,8 @@ public class PricingService {
     @PostConstruct
     public void init() {
         averagePricing = new AveragePricing(dataProvider.getStock(), BigDecimal.ZERO, 0);
-        dataProvider.findStocks().subscribe(stock -> {
-            log.debug("New stock price received: {}", stock);
-            averagePricing = averagePricing.registerNewPrice(stock.getPrice());
-            log.debug("New average price registered: {}", averagePricing);
+        streamAverage().subscribe(price -> {
+            averagePricing = price;
         });
     }
 
@@ -38,11 +37,12 @@ public class PricingService {
         return dataProvider.getStock();
     }
 
-
-    public static void main(String[] args) throws InterruptedException {
-        var pricingService = new PricingService(new FakeStocksDataProvider("PAGS"));
-        pricingService.init();
-        Thread.sleep(Long.MAX_VALUE);
+    public Flux<AveragePricing> streamAverage() {
+        return dataProvider.findStocks().map(stock -> {
+            log.debug("New stock price received: {}", stock);
+            var newPrice = averagePricing.registerNewPrice(stock.getPrice());
+            log.debug("New average price registered: {}", newPrice);
+            return newPrice;
+        });
     }
-
 }

@@ -8,3 +8,5 @@ logging:
 domain:
   stocks:
     - PAGS
+    - ABEV
+    - ABNB
