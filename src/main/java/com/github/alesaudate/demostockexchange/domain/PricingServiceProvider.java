@@ -3,23 +3,28 @@ package com.github.alesaudate.demostockexchange.domain;
 
 import com.github.alesaudate.demostockexchange.domain.exceptions.StockNotMonitoredException;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
-@AllArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PricingServiceProvider {
 
-    ApplicationContext applicationContext;
+    final ApplicationContext applicationContext;
+
+    Map<String, PricingService> pricingServiceCache = new HashMap<>();
 
     public PricingService getPricingService(String stock) {
         try {
-            return findPricingService(stock);
+            return pricingServiceCache.computeIfAbsent(stock, (s) -> findPricingService(s));
         }
         catch (NoSuchBeanDefinitionException e) {
             throw new StockNotMonitoredException();
