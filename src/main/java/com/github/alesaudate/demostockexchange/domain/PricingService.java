@@ -26,7 +26,9 @@ public class PricingService {
     public void init() {
         averagePricing = new AveragePricing(dataProvider.getStock(), BigDecimal.ZERO, 0);
 
-        streamData().subscribe(averagePricing1 -> log.debug("New average price registered: {}", averagePricing1));
+        streamData()
+                .doOnNext(averagePricing1 -> log.debug("New average price registered: {}", averagePricing1))
+                .subscribe(averagePricing1 -> averagePricing = averagePricing1);
 
     }
 
@@ -37,7 +39,6 @@ public class PricingService {
     public Flux<AveragePricing> streamData() {
         return dataProvider.findStocks()
                 .map(stock ->  averagePricing.registerNewPrice(stock.getPrice()))
-                .map(averagePricing1 -> averagePricing = averagePricing1)
                 .share()
                 ;
     }
