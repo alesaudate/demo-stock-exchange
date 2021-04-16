@@ -1,6 +1,8 @@
-package com.github.alesaudate.demostockexchange.interfaces.outcoming;
+package com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.providers.fake;
 
 
+import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.Stock;
+import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.StocksDataProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
@@ -16,13 +18,13 @@ import java.util.Random;
  */
 @RequiredArgsConstructor
 @Getter
-public class FakeStocksDataProvider implements StocksDataProvider{
+public class FakeStocksDataProvider implements StocksDataProvider {
 
     private static final Random RANDOM = new Random();
     private final String stock;
 
     public Flux<Stock> findStocks() {
-        return Flux.interval(Duration.of(1, ChronoUnit.SECONDS)).map(n -> randomData());
+        return Flux.interval(Duration.ZERO,Duration.of(5, ChronoUnit.SECONDS)).map(n -> randomData());
     }
 
     private Stock randomData() {
