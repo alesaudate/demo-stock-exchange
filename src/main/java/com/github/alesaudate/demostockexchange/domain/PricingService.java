@@ -1,12 +1,13 @@
 package com.github.alesaudate.demostockexchange.domain;
 
 
-import com.github.alesaudate.demostockexchange.interfaces.outcoming.StocksDataProvider;
+import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.StocksDataProvider;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
@@ -24,15 +25,21 @@ public class PricingService {
     @PostConstruct
     public void init() {
         averagePricing = new AveragePricing(dataProvider.getStock(), BigDecimal.ZERO, 0);
-        dataProvider.findStocks().subscribe(stock -> {
-            log.debug("New stock price received: {}", stock);
-            averagePricing = averagePricing.registerNewPrice(stock.getPrice());
-            log.debug("New average price registered: {}", averagePricing);
-        });
+
+        streamData().subscribe(averagePricing1 -> log.debug("New average price registered: {}", averagePricing1));
+
     }
 
     public String getStock() {
         return dataProvider.getStock();
+    }
+
+    public Flux<AveragePricing> streamData() {
+        return dataProvider.findStocks()
+                .map(stock ->  averagePricing.registerNewPrice(stock.getPrice()))
+                .map(averagePricing1 -> averagePricing = averagePricing1)
+                .share()
+                ;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.github.alesaudate.demostockexchange.interfaces.outcoming;
+package com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
