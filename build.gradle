@@ -9,6 +9,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 apply from: "gradle/integrationTest.gradle"
+apply from: "gradle/coverage.gradle"
 
 configurations {
 	compileOnly {

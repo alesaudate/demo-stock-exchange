@@ -16,35 +16,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AveragePricingTest {
 
-
     @DisplayName("Given " +
             "   some random average pricing " +
             "When " +
-            "   I make some change on the object " +
+            "   I register a new price on the object  " +
             "Then " +
+            "   the value is recalculated " +
+            "And " +
             "   the original object is not affected")
-    @ParameterizedTest
-    @MethodSource("randomPricings")
-    public void testAveragePricingIsImmutable(AveragePricing averagePricing) {
-        var clone = AveragePricingFixture.clone(averagePricing);
-        averagePricing.registerNewPrice(moneyValue(1000, 5000));
-        assertEquals(clone, averagePricing);
-    }
-
-
-    @DisplayName("Given " +
-            "   some random average pricing " +
-            "When " +
-            "   I provide another value to the object " +
-            "Then " +
-            "   the value is recalculated")
     @ParameterizedTest
     @MethodSource("randomPricings")
     public void testCalculatedValueIsOk(AveragePricing averagePricing) {
 
+        var clone = AveragePricingFixture.clone(averagePricing);
         var moneyValue = moneyValue(500);
         var changed = calculateNewValue(averagePricing, moneyValue);
         assertEquals(changed,   averagePricing.registerNewPrice(moneyValue));
+        assertEquals(clone, averagePricing);
 
     }
 
