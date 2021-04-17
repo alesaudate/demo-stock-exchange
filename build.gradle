@@ -8,6 +8,8 @@ group = 'com.github.alesaudate'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+apply from: "gradle/integrationTest.gradle"
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -19,13 +21,17 @@ repositories {
 }
 
 dependencies {
+	annotationProcessor 'org.projectlombok:lombok'
+
+	compileOnly 'org.projectlombok:lombok'
+
+	implementation 'com.jayway.jsonpath:json-path:2.5.0'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
-	implementation 'com.jayway.jsonpath:json-path:2.5.0'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation 'com.github.javafaker:javafaker:1.0.2'
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {

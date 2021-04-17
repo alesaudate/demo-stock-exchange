@@ -45,7 +45,7 @@ public class StocksDataProvidersConfiguration {
     }
 
     private StocksDataProvider createDataProvider(String stock) {
-        return fakeStocksDataProvider(stock);
+        return rapidAPIStockClient(stock);
     }
 
     private RapidAPIStockClient rapidAPIStockClient(String stock) {

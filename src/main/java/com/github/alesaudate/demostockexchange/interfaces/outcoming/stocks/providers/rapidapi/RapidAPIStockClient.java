@@ -49,6 +49,7 @@ public class RapidAPIStockClient implements StocksDataProvider {
                             .toEntity(String.class)
                             .map(ResponseEntity::getBody)
                             .map(this::responseToStock)
+                            .cache(Duration.of(30, ChronoUnit.SECONDS))
                             .flatMapMany(Flux::just)
                 );
     }

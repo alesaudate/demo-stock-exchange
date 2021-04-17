@@ -2,9 +2,12 @@ package com.github.alesaudate.demostockexchange;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
-class DemoStockExchangeApplicationTests {
+@ActiveProfiles("integration-test")
+class DemoStockExchangeApplicationTestIT {
 
 	@Test
 	void contextLoads() {
