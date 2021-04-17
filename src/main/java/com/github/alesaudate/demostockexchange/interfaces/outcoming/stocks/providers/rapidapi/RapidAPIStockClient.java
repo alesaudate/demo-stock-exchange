@@ -27,6 +27,8 @@ public class RapidAPIStockClient implements StocksDataProvider {
 
     WebClient.Builder webClientTemplate;
 
+    String host;
+
     private static final String X_RAPIDAPI_HOST = "apidojo-yahoo-finance-v1.p.rapidapi.com";
 
     @Override

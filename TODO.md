@@ -1,0 +1,6 @@
+- Create tests (of all kinds)
+- Improve README.md
+- Separate running profiles (generating fake data or real according to the profile)
+- Create postman collection demonstrating how to run
+- Create CloudFormation button to deploy to AWS
+- Create CI / CD pipeline (embedded to github itself)
