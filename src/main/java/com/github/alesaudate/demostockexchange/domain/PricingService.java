@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.time.Duration;
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,21 +26,31 @@ public class PricingService {
     @PostConstruct
     public void init() {
         averagePricing = new AveragePricing(dataProvider.getStock(), BigDecimal.ZERO, 0);
-
-        streamData().subscribe(averagePricing1 -> log.debug("New average price registered: {}", averagePricing1));
-
+        dataProvider.findStocks()
+                .doOnNext(stock -> log.debug("New stock price registered: {}", stock))
+                .map(stock -> averagePricing = averagePricing.registerNewPrice(stock.getPrice()))
+                .doOnNext(averagePricing1 -> log.debug("New average price registered: {}", averagePricing1))
+                .subscribe();
     }
 
     public String getStock() {
         return dataProvider.getStock();
     }
 
+    /**
+     * If the application had two or more subscribers to the data provider,
+     * there would be more than one subscriber updating the stateful information
+     * (in this case, the field {@link averagePricing}). So, in order to
+     * prevent weird updates on this field, this method acts like a watcher,
+     * checking if the value of the field has changed and, only if it does,
+     * emits the chnage in the data.
+     *
+     * @return a Flux containing the changes in the average pricing
+     */
     public Flux<AveragePricing> streamData() {
-        return dataProvider.findStocks()
-                .map(stock ->  averagePricing.registerNewPrice(stock.getPrice()))
-                .map(averagePricing1 -> averagePricing = averagePricing1)
-                .share()
-                ;
+        return Flux.interval(Duration.ZERO, Duration.ofSeconds(5L))
+                .map(n -> averagePricing)
+                .distinctUntilChanged();
     }
 
 }
