@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.github.alesaudate.demostockexchange.fixtures.BeanFactoryFixtures.applicationContextFixture;
+import static com.github.alesaudate.demostockexchange.fixtures.SpringBeansMockProvider.applicationContextMock;
 import static com.github.alesaudate.demostockexchange.fixtures.Randoms.randomNYSEStock;
 import static com.github.alesaudate.demostockexchange.fixtures.StocksDataProviderFixture.makeStocksDataProvider;
 import static java.util.Collections.emptyList;
@@ -34,7 +34,7 @@ public class DomainConfigurationTest {
     @ParameterizedTest()
     @MethodSource("listOfEmptyStocksProvider")
     public void testDoNothingIfHasNoStocks(List<String> stocks) {
-        var mockApplicationContext = applicationContextFixture();
+        var mockApplicationContext = applicationContextMock();
         var mockBeanFactory = (ConfigurableBeanFactory)mockApplicationContext.getParentBeanFactory();
 
         var domainConfiguration = new DomainConfiguration(mockBeanFactory, mockApplicationContext);
@@ -55,7 +55,7 @@ public class DomainConfigurationTest {
             "The matching Pricing Services are registered")
     @Test
     public void testRegisterPricingServices() {
-        var mockApplicationContext = applicationContextFixture();
+        var mockApplicationContext = applicationContextMock();
         var mockBeanFactory = (ConfigurableBeanFactory)mockApplicationContext.getParentBeanFactory();
         var stock = randomNYSEStock();
         var mockStocksDataProvider = makeStocksDataProvider(stock);
@@ -81,7 +81,7 @@ public class DomainConfigurationTest {
             "The matching Pricing Services are registered")
     @Test
     public void testRegisterSeveralPricingServices() {
-        var mockApplicationContext = applicationContextFixture();
+        var mockApplicationContext = applicationContextMock();
         var mockBeanFactory = (ConfigurableBeanFactory)mockApplicationContext.getParentBeanFactory();
 
         Map<String, StocksDataProvider> map = MapBuilder.<String,StocksDataProvider>map()
@@ -117,7 +117,7 @@ public class DomainConfigurationTest {
             "The matching Pricing Service is registered only once")
     @Test
     public void testMakePricingServicesSeveralTimes() {
-        var mockApplicationContext = applicationContextFixture();
+        var mockApplicationContext = applicationContextMock();
         var mockBeanFactory = (ConfigurableBeanFactory)mockApplicationContext.getParentBeanFactory();
         var stock = randomNYSEStock();
         var mockStocksDataProvider = makeStocksDataProvider(stock);

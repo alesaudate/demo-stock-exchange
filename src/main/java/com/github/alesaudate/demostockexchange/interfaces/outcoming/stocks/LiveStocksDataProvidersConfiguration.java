@@ -6,8 +6,12 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,7 +23,8 @@ import reactor.netty.http.client.HttpClient;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Configuration("StocksDataProvidersConfiguration")
 @ConditionalOnProperty("interfaces.outcoming.rapidapi.host")
@@ -32,6 +37,11 @@ public class LiveStocksDataProvidersConfiguration extends StocksDataProvidersCon
 
     @Value("${interfaces.outcoming.rapidapi.host}")
     String rapidApiHost;
+
+    @Autowired
+    public LiveStocksDataProvidersConfiguration(ConfigurableBeanFactory configurableBeanFactory) {
+        super(configurableBeanFactory);
+    }
 
 
     @Override

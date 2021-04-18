@@ -18,9 +18,9 @@ import java.time.temporal.ChronoUnit;
 
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
 public class RapidAPIStockClient implements StocksDataProvider {
 
-    @Getter
     String stock;
 
     String rapidApiKey;
@@ -51,7 +51,6 @@ public class RapidAPIStockClient implements StocksDataProvider {
                             .toEntity(String.class)
                             .map(ResponseEntity::getBody)
                             .map(this::responseToStock)
-                            .cache(Duration.of(30, ChronoUnit.SECONDS))
                             .flatMapMany(Flux::just)
                 );
     }

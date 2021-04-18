@@ -1,26 +1,31 @@
 package com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks;
 
-import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.providers.fake.FakeStocksDataProvider;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-@Data
+@Setter
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class StocksDataProvidersConfiguration {
 
     List<String> stocks;
 
     @Autowired
-    ConfigurableBeanFactory configurableBeanFactory;
+    final ConfigurableBeanFactory configurableBeanFactory;
 
     @PostConstruct
     public void registerProviders() {
-        stocks.stream()
+        Optional.ofNullable(stocks).orElseGet(Collections::emptyList).stream()
                 .map(this::createDataProvider)
                 .forEach(this::registerStockProvider);
     }

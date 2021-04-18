@@ -37,7 +37,6 @@ public class AveragePricingTest {
 
     }
 
-
     private AveragePricing calculateNewValue(AveragePricing averagePricing, BigDecimal newValue) {
         var unfoldValue = averagePricing.getCurrentAverage().multiply(BigDecimal.valueOf(averagePricing.getDatapoints()));
         var sum = unfoldValue.add(newValue);

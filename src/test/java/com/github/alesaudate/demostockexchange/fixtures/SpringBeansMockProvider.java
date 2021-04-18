@@ -9,10 +9,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class BeanFactoryFixtures {
+public class SpringBeansMockProvider {
 
 
-    public static ApplicationContext applicationContextFixture() {
+    public static ApplicationContext applicationContextMock() {
 
         var map = new HashMap<String, Object>();
         var mockConfigurableBeanFactory = mock(ConfigurableBeanFactory.class);
