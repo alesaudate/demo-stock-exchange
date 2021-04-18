@@ -1,4 +1,4 @@
-package com.github.alesaudate.demostockexchange;
+package com.github.alesaudate.demostockexchange.tests.integration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

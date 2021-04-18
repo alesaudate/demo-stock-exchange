@@ -1,5 +1,6 @@
-package com.github.alesaudate.demostockexchange.domain;
+package com.github.alesaudate.demostockexchange.tests.unit.domain;
 
+import com.github.alesaudate.demostockexchange.domain.AveragePricing;
 import com.github.alesaudate.demostockexchange.fixtures.AveragePricingFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
