@@ -28,4 +28,12 @@ public class Randoms {
     public static long randomLong(int max) {
         return Double.valueOf(RANDOM.nextDouble() * max).longValue();
     }
+
+    public static String randomRapidAPIKey() {
+        return FAKER.regexify("[a-z0-9]{50}");
+    }
+
+    public static String randomInternetHost() {
+        return FAKER.internet().url();
+    }
 }

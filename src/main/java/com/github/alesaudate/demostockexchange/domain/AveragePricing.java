@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 
 /**
@@ -13,7 +14,6 @@ import java.math.RoundingMode;
 
 @Getter
 @EqualsAndHashCode
-@ToString
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class AveragePricing {

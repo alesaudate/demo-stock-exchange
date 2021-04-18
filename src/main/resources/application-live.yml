@@ -1,4 +1,4 @@
 interfaces:
   outcoming:
     rapidapi:
-      url: https://apidojo-yahoo-finance-v1.p.rapidapi.com
+      host: https://apidojo-yahoo-finance-v1.p.rapidapi.com

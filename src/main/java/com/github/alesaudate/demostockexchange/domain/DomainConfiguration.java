@@ -1,9 +1,9 @@
 package com.github.alesaudate.demostockexchange.domain;
 
 import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.StocksDataProvider;
-import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.providers.fake.FakeStocksDataProvider;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -14,9 +14,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-@Data
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Configuration
 @EnableConfigurationProperties(DomainConfiguration.class)
@@ -24,17 +26,17 @@ import java.util.List;
 @DependsOn("StocksDataProvidersConfiguration")
 public class DomainConfiguration {
 
+    @Setter
     List<String> stocks;
 
-    @Autowired
-    ConfigurableBeanFactory configurableBeanFactory;
+    final ConfigurableBeanFactory configurableBeanFactory;
 
-    @Autowired
-    ApplicationContext applicationContext;
+
+    final ApplicationContext applicationContext;
 
     @PostConstruct
     public void makePricingServices() {
-        stocks.stream()
+        Optional.ofNullable(stocks).orElseGet(Collections::emptyList).stream()
                 .map(this::getStocksDataProvider)
                 .map(PricingService::new)
                 .forEach(this::registerPricingService);

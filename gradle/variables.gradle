@@ -1,14 +1,16 @@
 buildscript {
-
     ext {
         coverageLimits = [
-                'instruction':0.0,
-                'branch': 0.0,
-                'line': 0.0,
-                'complexity': 0.0,
-                'method': 0.0,
-                'class': 0.0
+                'instruction':91.31,
+                'branch': 100.0,
+                'line': 93.18,
+                'complexity': 95.24,
+                'method': 95.0,
+                'class': 100.0
+        ]
+
+        coverageExclusions = [
+                '**/DemoStockExchangeApplication*'
         ]
     }
-
 }
