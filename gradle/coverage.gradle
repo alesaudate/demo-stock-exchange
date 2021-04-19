@@ -20,7 +20,7 @@ jacocoTestReport {
         }))
     }
 
-    executionData(test)
+    executionData(integrationTest)
 
     doLast {
 
