@@ -3,5 +3,5 @@
 - [DONE] Separate running profiles (generating fake data or real according to the profile)
 - Create postman collection demonstrating how to run
 - Create CloudFormation button to deploy to AWS
-- Create CI / CD pipeline (embedded to github itself)
+- [DONE] Create continous integration pipeline (embedded to github itself)
 - Include a (secure) management module
