@@ -5,3 +5,4 @@
 - Create CloudFormation button to deploy to AWS
 - [DONE] Create continous integration pipeline (embedded to github itself)
 - Include a (secure) management module
+- [DONE] Include Swagger

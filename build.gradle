@@ -10,6 +10,7 @@ sourceCompatibility = '11'
 
 apply from: "gradle/integrationTest.gradle"
 apply from: "gradle/coverage.gradle"
+apply from: "gradle/swagger.gradle"
 
 configurations {
 	compileOnly {
@@ -29,7 +30,6 @@ dependencies {
 	implementation 'com.jayway.jsonpath:json-path:2.5.0'
 	implementation 'commons-io:commons-io:2.8.0'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 	testImplementation 'com.github.javafaker:javafaker:1.0.2'
 	testImplementation 'io.projectreactor:reactor-test'
