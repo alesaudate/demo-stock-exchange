@@ -1,7 +1,6 @@
 package com.github.alesaudate.demostockexchange.tests.contract;
 
 import com.github.alesaudate.demostockexchange.DemoStockExchangeApplication;
-import com.github.alesaudate.demostockexchange.domain.AveragePricing;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import io.restassured.RestAssured;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -50,11 +50,12 @@ public class StocksAveragePriceAPITestIT extends WiremockUtils {
             "Then " +
             "   I receive the average price ")
     @Test
+    @DirtiesContext
     public void testGetAveragePricingData() {
         elaborateSuccessResponsesFromRapidAPI(wireMockServer, "sample-01.json");
 
         //Must await for a fair long time because the first request will actually fail,
-        // due to the fact that Wiremock starts after the class itself - therefore,
+        // due to the fact that Wiremock starts after the test class itself - therefore,
         // after the first request to the API
         awaitForResponses(wireMockServer, "/market/v2/get-quotes", Duration.ofSeconds(35));
 
@@ -77,12 +78,13 @@ public class StocksAveragePriceAPITestIT extends WiremockUtils {
             "Then " +
             "   I receive a stream with average prices ")
     @Test
+    @DirtiesContext
     public void testGetStreamOfAveragePricingData() {
 
         elaborateSuccessResponsesFromRapidAPI(wireMockServer, "sample-01.json", getArrayOfFiles(2,5));
 
         //Must await for a fair long time because the first request will actually fail,
-        // due to the fact that Wiremock starts after the class itself - therefore,
+        // due to the fact that Wiremock starts after the test class itself - therefore,
         // after the first request to the API
         awaitForResponses(wireMockServer, "/market/v2/get-quotes", Duration.ofSeconds(35));
 

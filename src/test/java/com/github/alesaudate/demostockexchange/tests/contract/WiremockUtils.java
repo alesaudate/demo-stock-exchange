@@ -20,6 +20,8 @@ public abstract class WiremockUtils {
 
     public static void elaborateSuccessResponsesFromRapidAPI(WireMockServer wireMockServer, String initialFile, String... furtherFiles) {
 
+        wireMockServer.resetAll();
+
         var listOfFiles = new ArrayList<>(List.of(initialFile));
         listOfFiles.addAll(Optional.ofNullable(furtherFiles).map(Arrays::asList).orElseGet(Collections::emptyList));
 
