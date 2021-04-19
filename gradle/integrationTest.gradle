@@ -5,6 +5,12 @@ configurations {
     integrationTestRuntimeOnly {
         extendsFrom testRuntimeOnly
     }
+    integrationTestCompileOnly {
+        extendsFrom testCompileOnly
+    }
+    testCompileOnly {
+        extendsFrom compileOnly
+    }
 }
 
 sourceSets {
