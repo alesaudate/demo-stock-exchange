@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 
 import static com.github.alesaudate.demostockexchange.fixtures.Randoms.*;
 import static com.github.alesaudate.demostockexchange.fixtures.WebClientMockProvider.mockWebClientBuilder;
+import static com.github.alesaudate.demostockexchange.utils.FileUtils.getResponseData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RapidAPIStockClientTest {
@@ -37,12 +38,5 @@ public class RapidAPIStockClientTest {
 
     }
 
-    public String getResponseData(String file) {
-        var classpathResource = new ClassPathResource(String.format("/api/responses/rapidapi/%s", file));
-        try {
-            return FileUtils.readFileToString(classpathResource.getFile(), "UTF-8");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }

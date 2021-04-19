@@ -1,0 +1,187 @@
+{
+  "quoteResponse": {
+    "result": [
+      {
+        "language": "pt-BR",
+        "region": "BR",
+        "quoteType": "EQUITY",
+        "quoteSourceName": "Nasdaq Real Time Price",
+        "triggerable": false,
+        "quoteSummary": {
+          "earnings": {
+            "maxAge": 86400,
+            "earningsChart": {
+              "quarterly": [
+                {
+                  "date": "1Q2020",
+                  "actual": 0.22,
+                  "estimate": 0.22
+                },
+                {
+                  "date": "2Q2020",
+                  "actual": 0.17,
+                  "estimate": 0.17
+                },
+                {
+                  "date": "3Q2020",
+                  "actual": 0.19,
+                  "estimate": 0.2
+                },
+                {
+                  "date": "4Q2020",
+                  "actual": 0.3,
+                  "estimate": 0.3
+                }
+              ],
+              "currentQuarterEstimate": 0.24,
+              "currentQuarterEstimateDate": "1Q",
+              "currentQuarterEstimateYear": 2021,
+              "earningsDate": [
+                1614211200
+              ]
+            },
+            "financialsChart": {
+              "yearly": [
+                {
+                  "date": 2017,
+                  "revenue": 1696185000,
+                  "earnings": 478781000
+                },
+                {
+                  "date": 2018,
+                  "revenue": 2641715000,
+                  "earnings": 909267000
+                },
+                {
+                  "date": 2019,
+                  "revenue": 3550294000,
+                  "earnings": 1365597000
+                },
+                {
+                  "date": 2020,
+                  "revenue": 4508719000,
+                  "earnings": 1291658000
+                }
+              ],
+              "quarterly": [
+                {
+                  "date": "1Q2020",
+                  "revenue": 966804000,
+                  "earnings": 356671000
+                },
+                {
+                  "date": "2Q2020",
+                  "revenue": 856462000,
+                  "earnings": 296135000
+                },
+                {
+                  "date": "3Q2020",
+                  "revenue": 1211971000,
+                  "earnings": 263304000
+                },
+                {
+                  "date": "4Q2020",
+                  "revenue": 1473482000,
+                  "earnings": 375548000
+                }
+              ]
+            },
+            "financialCurrency": "BRL"
+          }
+        },
+        "currency": "USD",
+        "firstTradeDateMilliseconds": 1516804200000,
+        "priceHint": 2,
+        "totalCash": 1640065020,
+        "shortRatio": 6.25,
+        "floatShares": 200640764,
+        "ebitda": -58319000,
+        "targetPriceHigh": 100.82,
+        "targetPriceLow": 32.73,
+        "targetPriceMean": 81.97,
+        "targetPriceMedian": 85.1,
+        "heldPercentInsiders": 0.488,
+        "heldPercentInstitutions": 112.561,
+        "postMarketChangePercent": -2.28893,
+        "postMarketTime": 1618613840,
+        "postMarketPrice": 45.25,
+        "postMarketChange": -1.06,
+        "regularMarketChange": -0.09000015,
+        "regularMarketChangePercent": -0.19396584,
+        "regularMarketTime": 1618603202,
+        "regularMarketPrice": 46.40,
+        "regularMarketDayHigh": 46.72,
+        "regularMarketDayRange": "45.55 - 46.72",
+        "sharesShort": 14382848,
+        "regularMarketDayLow": 45.55,
+        "regularMarketVolume": 1371407,
+        "sharesShortPrevMonth": 14336549,
+        "shortPercentFloat": 14.84,
+        "regularMarketPreviousClose": 46.4,
+        "bid": 46.36,
+        "ask": 46.34,
+        "bidSize": 8,
+        "askSize": 8,
+        "exchange": "NYQ",
+        "market": "us_market",
+        "messageBoardId": "finmb_547797906_lang_pt",
+        "fullExchangeName": "NYSE",
+        "shortName": "PagSeguro Digital Ltd.",
+        "longName": "PagSeguro Digital Ltd.",
+        "regularMarketOpen": 46.42,
+        "averageDailyVolume3Month": 2112887,
+        "averageDailyVolume10Day": 1393957,
+        "beta": 1.58793,
+        "fiftyTwoWeekLowChange": 27.04,
+        "fiftyTwoWeekLowChangePercent": 1.4032174,
+        "fiftyTwoWeekRange": "19.27 - 62.83",
+        "fiftyTwoWeekHighChange": -16.52,
+        "fiftyTwoWeekHighChangePercent": -0.26293173,
+        "fiftyTwoWeekLow": 19.27,
+        "fiftyTwoWeekHigh": 62.83,
+        "earningsTimestamp": 1614272400,
+        "earningsTimestampStart": 1614272400,
+        "earningsTimestampEnd": 1614272400,
+        "trailingAnnualDividendRate": 0.24,
+        "trailingPE": 66.441895,
+        "pegRatio": 22.31,
+        "dividendsPerShare": 0,
+        "trailingAnnualDividendYield": 0.0051724133,
+        "revenue": 4508719100,
+        "priceToSales": 3.368423,
+        "marketState": "CLOSED",
+        "epsTrailingTwelveMonths": 0.697,
+        "epsForward": 1.49,
+        "epsCurrentYear": 1.32,
+        "epsNextQuarter": 0.28,
+        "priceEpsCurrentYear": 35.083332,
+        "priceEpsNextQuarter": 165.39287,
+        "sharesOutstanding": 179076992,
+        "bookValue": 28.313,
+        "fiftyDayAverage": 49.231766,
+        "fiftyDayAverageChange": -2.9217644,
+        "fiftyDayAverageChangePercent": -0.059347138,
+        "twoHundredDayAverage": 48.90518,
+        "twoHundredDayAverageChange": -2.5951805,
+        "twoHundredDayAverageChangePercent": -0.053065553,
+        "marketCap": 15187272704,
+        "forwardPE": 31.080538,
+        "priceToBook": 1.6356444,
+        "sourceInterval": 15,
+        "exchangeDataDelayedBy": 0,
+        "exchangeTimezoneName": "America/New_York",
+        "exchangeTimezoneShortName": "EDT",
+        "pageViews": {
+          "midTermTrend": "UP",
+          "longTermTrend": "UP",
+          "shortTermTrend": "DOWN"
+        },
+        "gmtOffSetMilliseconds": -14400000,
+        "esgPopulated": false,
+        "tradeable": false,
+        "symbol": "PAGS"
+      }
+    ],
+    "error": null
+  }
+}

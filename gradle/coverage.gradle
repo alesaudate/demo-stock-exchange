@@ -51,16 +51,17 @@ jacocoTestReport {
         ]
 
         def failures = []
-        logger.quiet("------------------ Current Code Coverage -----------------------")
+        logger.quiet("------------------ Current Code Coverage ---------------------")
         metrics.each {
 
             def limit = coverageLimits[it.key as String] ?: 0
-            logger.quiet("${it.key} coverage : ${it.value} where minimum is $limit")
+            def pad = "${it.key} coverage : ".padRight(23)
+            logger.quiet("${pad} ${it.value} ; minimum is $limit")
             if (it.value < limit) {
                 failures.add("- ${it.key} coverage rate is: ${it.value}%, minimum is ${limit}%")
             }
         }
-        logger.quiet("---------------------------------------------------------------")
+        logger.quiet("--------------------------------------------------------------")
 
         if (failures) {
             logger.quiet("------------------ Code Coverage Failed -----------------------")
