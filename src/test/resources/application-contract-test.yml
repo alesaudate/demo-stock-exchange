@@ -1,0 +1,5 @@
+interfaces:
+  outcoming:
+    rapidapi:
+      key: fakekeey
+      host: http://localhost:${wiremock.server.port}

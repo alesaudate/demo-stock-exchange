@@ -1,11 +1,11 @@
 buildscript {
     ext {
         coverageLimits = [
-                'instruction':91.31,
+                'instruction':90.31,
                 'branch': 100.0,
-                'line': 93.18,
-                'complexity': 95.24,
-                'method': 95.0,
+                'line': 93.33,
+                'complexity': 93.18,
+                'method': 92.86,
                 'class': 100.0
         ]
 

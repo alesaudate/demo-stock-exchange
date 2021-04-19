@@ -1,13 +1,9 @@
 package com.github.alesaudate.demostockexchange.domain;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @ConfigurationProperties
 public class Stock {
