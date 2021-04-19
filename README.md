@@ -1,7 +1,6 @@
 # Stock exchange (demo)
 
-<!-- TODO: include some badges about the coverage tests -->
-<!-- Badges: build status, code coverage -->
+![](.github/badges/jacoco.svg) ![](.github/badges/branches.svg)
 
 This project is about exposing API's that are capable of streaming the average price of some given stocks.
 
