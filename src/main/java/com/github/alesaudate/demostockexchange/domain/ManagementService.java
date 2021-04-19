@@ -4,6 +4,7 @@ import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.Stock
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,10 @@ public class ManagementService {
     StocksDataProvidersConfiguration stocksDataProvidersConfiguration;
 
     public void addStock(String stock) {
-        stocksDataProvidersConfiguration.addManagedStock(stock);
-        domainConfiguration.addManagedStock(stock);
+        if (StringUtils.isNotBlank(stock)) {
+            stocksDataProvidersConfiguration.addManagedStock(stock);
+            domainConfiguration.addManagedStock(stock);
+        }
     }
 
     public List<String> getManagedStocksList() {

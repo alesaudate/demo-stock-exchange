@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,7 @@ public class DomainConfiguration {
 
 
     public void addManagedStock(String stock) {
+        this.stocks = Optional.ofNullable(this.stocks).orElseGet(ArrayList::new);
         this.stocks.add(stock);
         makePricingServices();
     }

@@ -15,6 +15,10 @@ public class Randoms {
         return FAKER.stock().nyseSymbol();
     }
 
+    public static String randomBlankString() {
+        return FAKER.regexify("\\s{10}");
+    }
+
     public static BigDecimal moneyValue(int min, int max) {
         int topValue = max - min;
         Double d = RANDOM.nextDouble() * max;
