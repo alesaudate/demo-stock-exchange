@@ -6,7 +6,7 @@ jacoco {
 }
 
 jacocoTestReport {
-    dependsOn integrationTest
+    dependsOn test, integrationTest
 
     reports {
         xml.enabled true
@@ -20,7 +20,7 @@ jacocoTestReport {
         }))
     }
 
-    executionData(integrationTest)
+    executionData(test, integrationTest)
 
     doLast {
 

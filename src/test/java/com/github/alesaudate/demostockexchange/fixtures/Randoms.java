@@ -19,6 +19,10 @@ public class Randoms {
         return FAKER.regexify("\\s{10}");
     }
 
+    public static String randomString(int size) {
+        return FAKER.regexify(String.format("[a-zA-Z0-9]{%d}", size));
+    }
+
     public static BigDecimal moneyValue(int min, int max) {
         int topValue = max - min;
         Double d = RANDOM.nextDouble() * max;

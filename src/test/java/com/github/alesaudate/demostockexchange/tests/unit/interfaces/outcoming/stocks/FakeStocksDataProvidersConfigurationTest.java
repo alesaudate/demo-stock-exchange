@@ -68,6 +68,8 @@ public class FakeStocksDataProvidersConfigurationTest {
         configuration.registerProviders();
 
         verify(beanFactory, times(1)).registerSingleton(eq(StocksDataProvider.getStockBeanName(stock)), captorForStocksDataProvider.capture());
+
+        assertEquals(FakeStocksDataProvider.class, captorForStocksDataProvider.getValue().getClass());
     }
 
 
@@ -110,6 +112,59 @@ public class FakeStocksDataProvidersConfigurationTest {
 
         verify(beanFactory, never()).registerSingleton(anyString(), any());
 
+    }
+
+
+    @DisplayName("Given " +
+            "   a fake stocks data provider configuration " +
+            "When " +
+            "   I add a new managed stock " +
+            "Then " +
+            "   A new data provider is registered ")
+    @Test
+    public void testAddManagedStock() {
+        var applicationContext = applicationContextMock();
+        var beanFactory = (ConfigurableBeanFactory)applicationContext.getParentBeanFactory();
+        var configuration = new FakeStocksDataProvidersConfiguration(beanFactory);
+
+        configuration.setStocks(new ArrayList<>());
+
+        configuration.registerProviders();
+
+        verify(beanFactory, never()).registerSingleton(anyString(), any());
+
+        var stock = randomNYSEStock();
+        configuration.addManagedStock(stock);
+        configuration.registerProviders();
+
+        verify(beanFactory).registerSingleton(eq(StocksDataProvider.getStockBeanName(stock)), any(StocksDataProvider.class));
+    }
+
+
+
+    @DisplayName("Given " +
+            "   a fake stocks data provider configuration with null list of stocks " +
+            "When " +
+            "   I add a new managed stock " +
+            "Then " +
+            "   A new data provider is registered ")
+    @Test
+    public void testAddManagedStockWithNullListOfStocks() {
+        var applicationContext = applicationContextMock();
+        var beanFactory = (ConfigurableBeanFactory)applicationContext.getParentBeanFactory();
+        var configuration = new FakeStocksDataProvidersConfiguration(beanFactory);
+
+        configuration.setStocks(null);
+
+        configuration.registerProviders();
+
+        verify(beanFactory, never()).registerSingleton(anyString(), any());
+
+        var stock = randomNYSEStock();
+        configuration.addManagedStock(stock);
+        configuration.registerProviders();
+
+        verify(beanFactory).registerSingleton(eq(StocksDataProvider.getStockBeanName(stock)), any(StocksDataProvider.class));
     }
 
 }

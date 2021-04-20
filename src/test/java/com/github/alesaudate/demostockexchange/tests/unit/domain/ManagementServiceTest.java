@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
+
 import static com.github.alesaudate.demostockexchange.fixtures.Randoms.randomBlankString;
 import static com.github.alesaudate.demostockexchange.fixtures.Randoms.randomNYSEStock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = ManagementService.class)
 public class ManagementServiceTest {
@@ -43,6 +45,22 @@ public class ManagementServiceTest {
         verify(domainConfiguration).addManagedStock(eq(stock));
         verify(stocksDataProvidersConfiguration).addManagedStock(eq(stock));
 
+    }
+
+    @DisplayName("Given " +
+            "   a management service " +
+            "When " +
+            "   I retrieve the list of managed stocks " +
+            "Then " +
+            "   it fetches the list from the domain configuration")
+    @Test
+    public void testRetrieveListOfManagedStocks() {
+        var listOfStocks = List.of(randomNYSEStock(), randomNYSEStock(), randomNYSEStock());
+
+        when(domainConfiguration.getStocks()).thenReturn(listOfStocks);
+
+        var returnedList = managementService.getManagedStocksList();
+        assertEquals(listOfStocks, returnedList);
     }
 
     @DisplayName("Given " +

@@ -21,7 +21,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.github.alesaudate.demostockexchange.fixtures.Randoms.randomNYSEStock;
+import static com.github.alesaudate.demostockexchange.tests.contract.WiremockUtils.awaitForResponses;
+import static com.github.alesaudate.demostockexchange.tests.contract.WiremockUtils.elaborateSuccessResponsesFromRapidAPI;
 import static io.restassured.RestAssured.given;
+import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.leftPad;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DemoStockExchangeApplication.class)
 @ActiveProfiles("contract-test")
 @AutoConfigureWireMock(port = WireMockConfiguration.DYNAMIC_PORT)
-public class StocksAveragePriceAPITestIT extends WiremockUtils {
+public class StocksAveragePriceAPITestIT {
 
     @LocalServerPort
     Integer port;
@@ -88,7 +92,7 @@ public class StocksAveragePriceAPITestIT extends WiremockUtils {
         // after the first request to the API
         awaitForResponses(wireMockServer, "/market/v2/get-quotes", Duration.ofSeconds(35));
 
-        WebClient webClient = WebClient.builder().baseUrl(String.format("http://localhost:%d", port)).build();
+        WebClient webClient = WebClient.builder().baseUrl(format("http://localhost:%d", port)).build();
 
         var averagePrices = webClient.get()
                 .uri("/stocks/PAGS/stream")
@@ -116,11 +120,29 @@ public class StocksAveragePriceAPITestIT extends WiremockUtils {
     }
 
 
+    @DisplayName("Given " +
+            "   A service that returns stock average pricings " +
+            "When " +
+            "   I request the average pricing for some stock that is not monitored " +
+            "Then " +
+            "   I receive a 404 error ")
+    @Test
+    public void testGetAveragePricingDataOfNotMonitoredStock() {
+
+        given()
+                .contentType(ContentType.JSON)
+                .get(format("/stocks/%s", randomNYSEStock()))
+                .then()
+                .statusCode(404)
+        ;
+    }
+
+
     private String[] getArrayOfFiles(int starting, int end) {
         return IntStream
                 .rangeClosed(starting, end)
                 .boxed()
-                .map(n -> String.format("sample-%s.json", leftPad(String.valueOf(n), 2, '0')))
+                .map(n -> format("sample-%s.json", leftPad(String.valueOf(n), 2, '0')))
                 .collect(Collectors.toList())
                 .stream()
                 .toArray(n -> new String[n]);

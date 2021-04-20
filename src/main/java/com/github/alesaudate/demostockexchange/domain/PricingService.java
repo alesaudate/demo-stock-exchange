@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.util.function.Tuples;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -23,12 +25,14 @@ public class PricingService {
     AveragePricing averagePricing;
 
     public void init() {
+        log.info("Pricing service for stock {} is about to start", dataProvider.getStock());
         averagePricing = new AveragePricing(dataProvider.getStock(), BigDecimal.ZERO, 0);
         dataProvider.findStocks()
                 .doOnNext(stock -> log.debug("New stock price registered: {}", stock))
                 .map(stock -> averagePricing = averagePricing.registerNewPrice(stock.getPrice()))
                 .doOnNext(averagePricing1 -> log.debug("New average price registered: {}", averagePricing1))
                 .subscribe();
+        log.info("Pricing service for stock {} has started", dataProvider.getStock());
     }
 
     public String getStock() {
@@ -46,9 +50,13 @@ public class PricingService {
      * @return a Flux containing the changes in the average pricing
      */
     public Flux<AveragePricing> streamData() {
+
         return Flux.interval(Duration.ZERO, Duration.ofSeconds(2L))
                 .map(n -> averagePricing)
-                .distinctUntilChanged();
+                .distinctUntilChanged()
+                .doOnNext(averagePricing -> log.debug("Average price for stock {} has changed; now it is {}",
+                        averagePricing.getStock(),
+                        averagePricing.getCurrentAverage()));
     }
 
 }
