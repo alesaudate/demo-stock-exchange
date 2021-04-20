@@ -36,9 +36,12 @@ Then, once you copy it, you can run the application like this:
 
 ### Adding more stocks
 
-If you want to add some more stocks to be monitored, just open the file 
-[application.yml](src/main/resources/application.yml) and add the stock under the key `domain.stocks`. As soon as you
-restart the application, the updated stocks should be printed out. 
+If you want to add some more stocks to be monitored, you can do a POST to the endpoint 
+[/management/stocks/{stockName}](http://localhost:8080/webjars/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/management-controller/createManagedStock).
+
+An alternative way is to open the file [application.yml](src/main/resources/application.yml) and add the stock under 
+the key `domain.stocks`. As soon as you restart the application, the updated stocks should be printed out. 
+
 
 ## Technology
 
