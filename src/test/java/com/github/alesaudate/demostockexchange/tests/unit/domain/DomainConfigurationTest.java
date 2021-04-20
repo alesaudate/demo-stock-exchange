@@ -136,6 +136,29 @@ public class DomainConfigurationTest {
 
     }
 
+    @DisplayName("Given " +
+            "   A domain configuration  " +
+            "When " +
+            "   A random stock is added " +
+            "Then " +
+            "   The matching pricing service is registered")
+    @Test
+    public void testAddManagedStock() {
+
+        var stock = randomNYSEStock();
+        var mockApplicationContext = applicationContextMock();
+        var mockBeanFactory = (ConfigurableBeanFactory)mockApplicationContext.getParentBeanFactory();
+        var mockStocksDataProvider = makeStocksDataProvider(stock);
+
+        when(mockApplicationContext.getBean(eq(StocksDataProvider.getStockBeanName(stock)), eq(StocksDataProvider.class))).thenReturn(mockStocksDataProvider);
+
+        var domainConfiguration = new DomainConfiguration(mockBeanFactory, mockApplicationContext);
+
+        domainConfiguration.addManagedStock(stock);
+
+        verify(mockBeanFactory).registerSingleton(eq(stock), any(PricingService.class));
+
+    }
 
 
     private static Stream<List<String>> listOfEmptyStocksProvider() {

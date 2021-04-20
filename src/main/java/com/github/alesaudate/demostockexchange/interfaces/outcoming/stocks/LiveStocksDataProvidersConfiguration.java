@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 @ConditionalOnProperty("interfaces.outcoming.rapidapi.host")
 @ConfigurationProperties("domain")
 @EnableConfigurationProperties(LiveStocksDataProvidersConfiguration.class)
+@Primary
 public class LiveStocksDataProvidersConfiguration extends StocksDataProvidersConfiguration{
 
     @Value("${interfaces.outcoming.rapidapi.key}")

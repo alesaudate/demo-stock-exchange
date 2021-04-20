@@ -1,7 +1,6 @@
 package com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks;
 
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +22,12 @@ public abstract class StocksDataProvidersConfiguration {
 
     @Autowired
     final ConfigurableBeanFactory configurableBeanFactory;
+
+    public void addManagedStock(String stock) {
+        this.stocks = Optional.ofNullable(stocks).orElseGet(ArrayList::new);
+        this.stocks.add(stock);
+        registerProviders();
+    }
 
     @PostConstruct
     public void registerProviders() {

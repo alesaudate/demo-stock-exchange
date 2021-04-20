@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnExpression("#{environment.getProperty('interfaces.outcoming.rapidapi.host') == null}")
 @ConfigurationProperties("domain")
 @EnableConfigurationProperties(FakeStocksDataProvidersConfiguration.class)
+@Primary
 public class FakeStocksDataProvidersConfiguration extends StocksDataProvidersConfiguration {
 
     @Autowired

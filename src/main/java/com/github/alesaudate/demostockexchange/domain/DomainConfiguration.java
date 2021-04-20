@@ -2,6 +2,7 @@ package com.github.alesaudate.demostockexchange.domain;
 
 import com.github.alesaudate.demostockexchange.interfaces.outcoming.stocks.StocksDataProvider;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +29,20 @@ import java.util.Optional;
 public class DomainConfiguration {
 
     @Setter
+    @Getter
     List<String> stocks;
 
     final ConfigurableBeanFactory configurableBeanFactory;
 
 
     final ApplicationContext applicationContext;
+
+
+    public void addManagedStock(String stock) {
+        this.stocks = Optional.ofNullable(this.stocks).orElseGet(ArrayList::new);
+        this.stocks.add(stock);
+        makePricingServices();
+    }
 
     @PostConstruct
     public void makePricingServices() {
